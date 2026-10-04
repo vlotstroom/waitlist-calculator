@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waitlist fill-rate calculator for salons and clinics</title>
+<meta name="description" content="Free calculator: how many cancelled slots your waitlist can actually refill each month, what that recovers in revenue, and how many slots stay empty.">
+<style>
+:root{--ink:#1c2733;--mut:#5d6b7a;--line:#dfe6ee;--bg:#f7f9fb;--acc:#0f6f5c;--acc2:#0b4f42;--warn:#a8442a;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+main{max-width:860px;margin:0 auto;padding:24px 18px 64px}
+header h1{font-size:1.45rem;margin:0 0 6px}
+header p.sub{color:var(--mut);margin:0 0 4px}
+.langbar{margin:10px 0 18px}
+.langbar button{font:inherit;border:1px solid var(--line);background:var(--card);padding:4px 12px;border-radius:6px;cursor:pointer;color:var(--mut)}
+.langbar button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h2{font-size:1.02rem;margin:0 0 12px}
+label{display:block;font-size:.86rem;color:var(--mut);margin:10px 0 4px}
+input[type=number]{width:100%;font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.val{font-variant-numeric:tabular-nums}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row .k{color:var(--mut);font-size:.9rem}
+.row .v{font-weight:600;font-variant-numeric:tabular-nums}
+.row.big .v{font-size:1.35rem;color:var(--warn)}
+.row.gain .v{color:var(--acc)}
+.note{font-size:.8rem;color:var(--mut);margin-top:10px}
+footer{margin-top:26px;font-size:.85rem;color:var(--mut)}
+footer a{color:var(--acc)}
+.badge{display:inline-block;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;color:var(--acc2);border:1px solid var(--acc);border-radius:4px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1 id="t-title">Waitlist fill-rate calculator <span class="badge">free tool</span></h1>
+<p class="sub" id="sub">For salons, clinics and studios. No signup, runs in your browser, nothing is sent anywhere.</p>
+<div class="langbar" role="group" aria-label="Language">
+<button id="btn-en" aria-pressed="true" onclick="setLang('en')">English</button>
+<button id="btn-nl" aria-pressed="false" onclick="setLang('nl')">Nederlands</button>
+</div>
+</header>
+
+<div class="grid">
+<section class="card" aria-labelledby="h-in">
+<h2 id="h-in">Your numbers</h2>
+<label for="appt" id="l-appt">Appointments per week</label>
+<input type="number" id="appt" min="1" max="2000" step="1" value="120" inputmode="numeric">
+
+<label for="rate" id="l-rate"><span id="rate-out" class="val">12</span>% <span id="l-rate2">cancellations + no-shows (slots that open up)</span></label>
+<input type="range" id="rate" min="0" max="40" step="0.5" value="12" aria-describedby="rate-out">
+
+<label for="value" id="l-value">Average revenue per appointment (&euro;)</label>
+<input type="number" id="value" min="1" max="2000" step="1" value="65" inputmode="numeric">
+
+<label for="wait" id="l-wait">Waitlist members you can message</label>
+<input type="number" id="wait" min="0" max="5000" step="1" value="40" inputmode="numeric">
+
+<label for="reply"><span id="l-reply1">Reply rate to an offer:</span> <span id="reply-out" class="val">50</span>%</label>
+<input type="range" id="reply" min="0" max="100" step="1" value="50">
+<p class="note" id="t-note">Plain math, no benchmarks claimed. Fillable slots = waitlist &times; reply rate; each member is counted at most once per month.</p>
+</section>
+
+<section class="card" aria-labelledby="h-out">
+<h2 id="h-out">What your waitlist refills</h2>
+<div class="row big"><span class="k" id="l-openmonth">Open slots per month</span><span class="v" id="o-openmonth">0</span></div>
+<div class="row"><span class="k" id="l-maxfill">Fillable from your waitlist</span><span class="v" id="o-maxfill">0</span></div>
+<div class="row"><span class="k" id="l-fillrate">Fill rate you reach</span><span class="v" id="o-fillrate">0%</span></div>
+<h2 style="margin-top:18px" id="h-rec">Refilled and recovered</h2>
+<div class="row gain"><span class="k" id="l-filled">Slots refilled per month</span><span class="v" id="o-filled">0</span></div>
+<div class="row gain"><span class="k" id="l-recmonth">Recovered per month</span><span class="v" id="o-recmonth">&euro;0</span></div>
+<div class="row gain"><span class="k" id="l-recyear">Recovered per year</span><span class="v" id="o-recyear">&euro;0</span></div>
+<div class="row"><span class="k" id="l-empty">Slots still empty per month</span><span class="v" id="o-empty">0</span></div>
+</section>
+</div>
+
+<footer>
+<p id="t-foot1">Built by Vlotstroom. We sell a ready-made n8n automation pack for salons and clinics (waitlist autofill, appointment reminders, no-show rescue and more) for &euro;29:</p>
+<p><a href="https://vlotstream.gumroad.com/l/rhmxw" id="t-link" rel="noopener">Afspraakpack for n8n</a></p>
+<p><span id="t-foot2">Plain math: open slots = appointments &times; cancellation rate. Fillable = waitlist &times; reply rate. Month = 4.33 weeks. Related free tool:</span> <a href="https://vlotstroom.github.io/noshow-calculator/" id="t-link2" rel="noopener"><span id="l-link2">no-show cost calculator</span></a>.</p>
+</footer>
+</main>
+<script>
+var I18N={
+ en:{"l-appt":"Appointments per week","l-rate2":"cancellations + no-shows (slots that open up)","l-value":"Average revenue per appointment (\u20ac)",
+  "l-wait":"Waitlist members you can message","l-reply1":"Reply rate to an offer:","l-openmonth":"Open slots per month","l-maxfill":"Fillable from your waitlist",
+  "l-fillrate":"Fill rate you reach","h-rec":"Refilled and recovered","l-filled":"Slots refilled per month","l-recmonth":"Recovered per month",
+  "l-recyear":"Recovered per year","l-empty":"Slots still empty per month",
+  "t-note":"Plain math, no benchmarks claimed. Fillable slots = waitlist \u00d7 reply rate; each member is counted at most once per month.",
+  "t-foot1":"Built by Vlotstroom. We sell a ready-made n8n automation pack for salons and clinics (waitlist autofill, appointment reminders, no-show rescue and more) for \u20ac29:",
+  "t-foot2":"Plain math: open slots = appointments \u00d7 cancellation rate. Fillable = waitlist \u00d7 reply rate. Month = 4.33 weeks. Related free tool:","l-link2":"no-show cost calculator"},
+ nl:{"l-appt":"Afspraken per week","l-rate2":"afzeggingen + no-shows (plekken die vrijkomen)","l-value":"Gemiddelde omzet per afspraak (\u20ac)",
+  "l-wait":"Wachtlijst-leden die je kunt benaderen","l-reply1":"Reactiesnelheid op een aanbod:","l-openmonth":"Vrije plekken per maand","l-maxfill":"Vulbaar vanuit je wachtlijst",
+  "l-fillrate":"Behaald vulpercentage","h-rec":"Gevuld en teruggewonnen","l-filled":"Gevulde plekken per maand","l-recmonth":"Teruggewonnen per maand",
+  "l-recyear":"Teruggewonnen per jaar","l-empty":"Nog lege plekken per maand",
+  "t-note":"Simpele rekensom, geen benchmarks beloofd. Vulbare plekken = wachtlijst \u00d7 reactiesnelheid; elk lid telt maximaal \u00e9\u00e9n keer per maand.",
+  "t-foot1":"Gemaakt door Vlotstroom. Wij verkopen een kant-en-klare n8n-automatiseringspack voor salons en klinieken (wachtlijst-autofill, afspraakherinneringen, no-show rescue en meer) voor \u20ac29:",
+  "t-foot2":"Simpele rekensom: vrije plekken = afspraken \u00d7 afzegpercentage. Vulbaar = wachtlijst \u00d7 reactiesnelheid. Maand = 4,33 weken. Gerelateerde gratis tool:","l-link2":"no-show kosten calculator"}
+};
+var ids=["l-appt","l-rate2","l-value","l-wait","l-reply1","l-openmonth","l-maxfill","l-fillrate","h-rec","l-filled","l-recmonth","l-recyear","l-empty","t-note","t-foot1","t-foot2","l-link2"];
+function setLang(l){
+ document.documentElement.lang=l;
+ for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)el.textContent=I18N[l][ids[i]];}
+ document.getElementById("btn-en").setAttribute("aria-pressed",l==="en");
+ document.getElementById("btn-nl").setAttribute("aria-pressed",l==="nl");
+ calc();
+}
+function fmtEUR(n){return"\u20ac"+n.toLocaleString("en-US",{maximumFractionDigits:0});}
+function calc(){
+ var appt=Math.max(1,parseFloat(document.getElementById("appt").value)||0);
+ var rate=parseFloat(document.getElementById("rate").value)||0;
+ var val=Math.max(0,parseFloat(document.getElementById("value").value)||0);
+ var wait=Math.max(0,parseFloat(document.getElementById("wait").value)||0);
+ var reply=parseFloat(document.getElementById("reply").value)||0;
+ document.getElementById("rate-out").textContent=rate;
+ document.getElementById("reply-out").textContent=reply;
+ var opened=appt*(rate/100)*4.33;
+ var maxFill=wait*(reply/100);
+ var filled=Math.min(opened,maxFill);
+ var fillRate=opened>0?(filled/opened*100):0;
+ var empties=Math.max(0,opened-filled);
+ var recMonth=filled*val;
+ var recYear=recMonth*12;
+ document.getElementById("o-openmonth").textContent=Math.round(opened);
+ document.getElementById("o-maxfill").textContent=Math.round(maxFill);
+ document.getElementById("o-fillrate").textContent=(Math.round(fillRate*10)/10)+"%";
+ document.getElementById("o-filled").textContent=Math.round(filled);
+ document.getElementById("o-recmonth").textContent=fmtEUR(recMonth);
+ document.getElementById("o-recyear").textContent=fmtEUR(recYear);
+ document.getElementById("o-empty").textContent=Math.round(empties);
+}
+["appt","rate","value","wait","reply"].forEach(function(id){document.getElementById(id).addEventListener("input",calc);});
+calc();
+</script>
+</body>
+</html>
