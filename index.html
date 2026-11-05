@@ -94,7 +94,7 @@ footer a{color:var(--acc)}
 <p id="t-foot1">Built by Vlotstroom. We sell a ready-made n8n automation pack for salons and clinics (waitlist autofill, appointment reminders, no-show rescue and more) for &euro;29:</p>
 <p><a href="https://vlotstream.gumroad.com/l/rhmxw" id="t-link" rel="noopener">Afspraakpack for n8n</a></p>
 <p><a href="https://vlotstroom.hmdev.nl/" id="t-home" rel="noopener">vlotstroom.hmdev.nl</a></p>
-<p><span id="t-foot2">Plain math: open slots = appointments &times; cancellation rate. Fillable = waitlist &times; reply rate. Month = 4.33 weeks. Related free tool:</span> <a href="https://vlotstroom.github.io/noshow-calculator/" id="t-link2" rel="noopener"><span id="l-link2">no-show cost calculator</span></a>.</p>
+<p><span id="t-foot2">Plain math: open slots = appointments &times; cancellation rate. Fillable = waitlist &times; reply rate. Month = 4.33 weeks. Related free tools:</span> <a href="https://vlotstroom.github.io/noshow-calculator/" id="t-link2" rel="noopener"><span id="l-link2">no-show cost calculator</span></a> &middot; <a href="https://vlotstroom.github.io/n8n-cost-calculator/" id="t-link3" rel="noopener"><span id="l-link3">n8n AI workflow cost calculator</span></a> &middot; <a href="https://vlotstroom.github.io/n8n-client-price-calculator/" id="t-link4" rel="noopener"><span id="l-link4">n8n client price calculator</span></a>.</p>
 </footer>
 </main>
 <script>
@@ -105,16 +105,16 @@ var I18N={
   "l-recyear":"Recovered per year","l-empty":"Slots still empty per month",
   "t-note":"Plain math, no benchmarks claimed. Fillable slots = waitlist \u00d7 reply rate; each member is counted at most once per month.",
   "t-foot1":"Built by Vlotstroom. We sell a ready-made n8n automation pack for salons and clinics (waitlist autofill, appointment reminders, no-show rescue and more) for \u20ac29:",
-  "t-foot2":"Plain math: open slots = appointments \u00d7 cancellation rate. Fillable = waitlist \u00d7 reply rate. Month = 4.33 weeks. Related free tool:","l-link2":"no-show cost calculator"},
+  "t-foot2":"Plain math: open slots = appointments \u00d7 cancellation rate. Fillable = waitlist \u00d7 reply rate. Month = 4.33 weeks. Related free tools:","l-link2":"no-show cost calculator","l-link3":"n8n AI workflow cost calculator","l-link4":"n8n client price calculator"},
  nl:{"l-appt":"Afspraken per week","l-rate2":"afzeggingen + no-shows (plekken die vrijkomen)","l-value":"Gemiddelde omzet per afspraak (\u20ac)",
   "l-wait":"Wachtlijst-leden die je kunt benaderen","l-reply1":"Reactiesnelheid op een aanbod:","l-openmonth":"Vrije plekken per maand","l-maxfill":"Vulbaar vanuit je wachtlijst",
   "l-fillrate":"Behaald vulpercentage","h-rec":"Gevuld en teruggewonnen","l-filled":"Gevulde plekken per maand","l-recmonth":"Teruggewonnen per maand",
   "l-recyear":"Teruggewonnen per jaar","l-empty":"Nog lege plekken per maand",
   "t-note":"Simpele rekensom, geen benchmarks beloofd. Vulbare plekken = wachtlijst \u00d7 reactiesnelheid; elk lid telt maximaal \u00e9\u00e9n keer per maand.",
   "t-foot1":"Gemaakt door Vlotstroom. Wij verkopen een kant-en-klare n8n-automatiseringspack voor salons en klinieken (wachtlijst-autofill, afspraakherinneringen, no-show rescue en meer) voor \u20ac29:",
-  "t-foot2":"Simpele rekensom: vrije plekken = afspraken \u00d7 afzegpercentage. Vulbaar = wachtlijst \u00d7 reactiesnelheid. Maand = 4,33 weken. Gerelateerde gratis tool:","l-link2":"no-show kosten calculator"}
+  "t-foot2":"Simpele rekensom: vrije plekken = afspraken \u00d7 afzegpercentage. Vulbaar = wachtlijst \u00d7 reactiesnelheid. Maand = 4,33 weken. Gerelateerde gratis tools:","l-link2":"no-show kosten calculator","l-link3":"n8n AI-workflow kosten rekentool","l-link4":"n8n-klantprijs rekentool"}
 };
-var ids=["l-appt","l-rate2","l-value","l-wait","l-reply1","l-openmonth","l-maxfill","l-fillrate","h-rec","l-filled","l-recmonth","l-recyear","l-empty","t-note","t-foot1","t-foot2","l-link2"];
+var ids=["l-appt","l-rate2","l-value","l-wait","l-reply1","l-openmonth","l-maxfill","l-fillrate","h-rec","l-filled","l-recmonth","l-recyear","l-empty","t-note","t-foot1","t-foot2","l-link2","l-link3","l-link4"];
 function setLang(l){
  document.documentElement.lang=l;
  for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el)el.textContent=I18N[l][ids[i]];}
