@@ -17,6 +17,9 @@ Honest math, no benchmarks claimed:
 Built by Vlotstroom. We also sell a ready-made n8n automation pack for
 salons and clinics (waitlist autofill, appointment reminders, no-show
 rescue and more): https://vlotstream.gumroad.com/l/rhmxw
+All Vlotstroom calculators (free, no signup, no tracking):
+- no-show cost calculator: https://vlotstroom.github.io/noshow-calculator/
+- n8n AI workflow cost calculator: https://vlotstroom.github.io/n8n-cost-calculator/
+- n8n client price calculator: https://vlotstroom.github.io/n8n-client-price-calculator/
 
-Related free tool: no-show cost calculator
-https://vlotstroom.github.io/noshow-calculator/
+Site, walkthroughs and the paid client-delivery kit: https://vlotstroom.hmdev.nl
